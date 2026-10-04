@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igreja Ministerial Geração Eleita</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --gold-light: #F5D76E;
+            --gold-dark: #B8860B;
+            --black: #0a0a0a;
+            --dark: #121212;
+            --gray: #1e1e1e;
+            --white: #ffffff;
+            --off-white: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        header.scrolled {
+            padding: 5px 0;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+        }
+
+        .logo-img {
+            height: 55px;
+            width: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-area:hover .logo-img {
+            transform: scale(1.05);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text .small {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .logo-text .main {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo-text .main .white {
+            color: var(--white);
+        }
+
+        .logo-text .main .gold {
+            color: var(--gold);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .menu-toggle span {
+            width: 25px;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO / SLIDESHOW ===== */
+        .hero {
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slideshow {
+            position: absolute;
+            inset: 0;
+        }
+
+        .slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 900px;
+            animation: fadeInUp 1.5s ease;
+        }
+
+        .hero-logo {
+            width: 180px;
+            margin: 0 auto 25px;
+            filter: drop-shadow(0 0 20px rgba(212, 175, 55, 0.4));
+            animation: pulseGold 3s infinite;
+        }
+
+        .hero-content h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .hero-content h1 .white { color: var(--white); }
+        .hero-content h1 .gold { color: var(--gold); }
+
+        .hero-content .subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            letter-spacing: 4px;
+            color: var(--gold);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .hero-content .slogan {
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--off-white);
+            margin-bottom: 40px;
+            letter-spacing: 1px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 35px;
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--gold);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn:hover {
+            color: var(--black);
+        }
+
+        .btn:hover::before {
+            left: 0;
+        }
+
+        .slide-indicators {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 12px;
+            z-index: 20;
+        }
+
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .indicator.active {
+            background: var(--gold);
+            border-color: var(--gold-light);
+            transform: scale(1.2);
+        }
+
+        /* ===== SECTIONS COMMON ===== */
+        section {
+            padding: 100px 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: var(--gold);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--gold);
+            margin: 15px auto 0;
+        }
+
+        .section-header p {
+            color: #aaa;
+            max-width: 600px;
+            margin: 20px auto 0;
+            font-size: 1.05rem;
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            background: var(--dark);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            color: #ccc;
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .stat {
+            text-align: center;
+            padding: 20px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 8px;
+            transition: transform 0.3s, border-color 0.3s;
+        }
+
+        .stat:hover {
+            transform: translateY(-5px);
+            border-color: var(--gold);
+        }
+
+        .stat-number {
+            font-family: 'Cinzel', serif;
+            font-size: 2.2rem;
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s;
+        }
+
+        .about-image:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===== CULTOS (GOBA & SEDE) ===== */
+        .cultos {
+            background: var(--black);
+        }
+
+        .cultos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .culto-card {
+            background: linear-gradient(145deg, #1a1a1a, #0f0f0f);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 16px;
+            padding: 40px 35px;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .culto-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold-dark), var(--gold), var(--gold-light));
+        }
+
+        .culto-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+        }
+
+        .culto-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        .culto-card .location {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .culto-times {
+            list-style: none;
+        }
+
+        .culto-times li {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: #ddd;
+        }
+
+        .culto-times li:last-child {
+            border-bottom: none;
+        }
+
+        .culto-times .day {
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .culto-times .time {
+            color: var(--gold);
+            font-weight: 500;
+        }
+
+        .culto-card .note {
+            margin-top: 25px;
+            padding: 15px;
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        /* ===== EVENTOS ===== */
+        .eventos {
+            background: var(--dark);
+        }
+
+        .eventos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .evento-card {
+            background: var(--gray);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .evento-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+
+        .evento-date {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: var(--black);
+            padding: 20px;
+            text-align: center;
+            font-family: 'Cinzel', serif;
+        }
+
+        .evento-date .day {
+            font-size: 2.5rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .evento-date .month {
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .evento-body {
+            padding: 25px;
+        }
+
+        .evento-body h4 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--white);
+        }
+
+        .evento-body p {
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+        }
+
+        .evento-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--gold);
+        }
+
+        /* ===== GALERIA DINÂMICA ===== */
+        .galeria {
+            background: var(--black);
+        }
+
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 15px;
+        }
+
+        .galeria-item {
+            position: relative;
+            height: 250px;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .galeria-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .galeria-item::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .galeria-item:hover::after {
+            opacity: 1;
+        }
+
+        /* ===== CONTATO ===== */
+        .contato {
+            background: var(--dark);
+        }
+
+        .contato-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contato-info h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.6rem;
+            color: var(--gold);
+            margin-bottom: 25px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .info-icon {
+            width: 45px;
+            height: 45px;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--gold);
+            font-size: 1.2rem;
+        }
+
+        .info-text h4 {
+            color: var(--white);
+            margin-bottom: 5px;
+            font-size: 1rem;
+        }
+
+        .info-text p, .info-text a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .info-text a:hover {
+            color: var(--gold);
+        }
+
+        .contato-form {
+            background: var(--gray);
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #ccc;
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--dark);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px;
+            color: var(--white);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 16px;
+            background: var(--gold);
+            color: var(--black);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.3);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--black);
+            border-top: 1px solid rgba(212, 175, 55, 0.15);
+            padding: 60px 30px 30px;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-brand img {
+            height: 70px;
+            margin-bottom: 15px;
+        }
+
+        .footer-brand p {
+            color: #888;
+            font-size: 0.95rem;
+            max-width: 300px;
+        }
+
+        .footer-links h4 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulseGold {
+            0%, 100% { filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.3)); }
+            50% { filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.6)); }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            .about-grid,
+            .cultos-grid,
+            .contato-grid,
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10,10,10,0.98);
+                flex-direction: column;
+                padding: 20px;
+                gap: 15px;
+                border-bottom: 1px solid rgba(212,175,55,0.2);
+            }
+
+            nav ul.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: flex;
+            }
+
+            .logo-text {
+                display: none;
+            }
+
+            .hero-logo {
+                width: 140px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            section {
+                padding: 70px 20px;
+            }
+
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+
+            .culto-card {
+                padding: 30px 25px;
+            }
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 8px;
+            box-shadow: 0 0 50px rgba(212,175,55,0.2);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 2.5rem;
+            color: var(--gold);
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header id="header">
+        <div class="header-container">
+            <a href="#home" class="logo-area">
+                <img src="images/LOGOTIPO.PNG" alt="Logo Geração Eleita" class="logo-img">
+                <div class="logo-text">
+                    <span class="small">IGREJA MINISTERIAL</span>
+                    <span class="main"><span class="white">GERAÇÃO</span> <span class="gold">ELEITA</span></span>
+                </div>
+            </a>
+            <nav>
+                <ul id="nav-menu">
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#cultos">Cultos</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                    <li><a href="#galeria">Galeria</a></li>
+                    <li><a href="#contato">Contato</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SLIDESHOW -->
+    <section class="hero" id="home">
+        <div class="slideshow" id="slideshow">
+            <!-- Slides will be injected by JS -->
+        </div>
+        <div class="hero-content">
+            <img src="images/LOGOTIPO.png" alt="Logo" class="hero-logo">
+            <p class="subtitle">Igreja Ministerial</p>
+            <h1><span class="white">GERAÇÃO</span> <span class="gold">ELEITA</span></h1>
+            <p class="slogan">Chamados para Manifestar as Virtudes de Deus</p>
+            <a href="#cultos" class="btn">Nossos Cultos</a>
+        </div>
+        <div class="slide-indicators" id="indicators"></div>
+    </section>
+
+    <!-- SOBRE -->
+    <section class="about" id="sobre">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Quem Somos</h2>
+                <p>Uma igreja chamada a manifestar as virtudes de Deus em toda a terra</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-text fade-in">
+                    <h3>Nossa Missão</h3>
+                    <p>A Igreja Ministerial Geração Eleita existe para proclamar o evangelho de Jesus Cristo, discipular vidas e manifestar o amor de Deus através de ações práticas de compaixão e serviço à comunidade.</p>
+                    <p>Somos uma família de fé comprometida em ser sal e luz, levando esperança, cura e transformação a cada coração que encontramos.</p>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number" data-target="15">0</div>
+                            <div class="stat-label">Anos de Ministério</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" data-target="500">0</div>
+                            <div class="stat-label">Membros</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number" data-target="50">0</div>
+                            <div class="stat-label">Missões Realizadas</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image fade-in">
+                    <img src="images/PAI.jpg" alt="Líder da Igreja">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CULTOS -->
+    <section class="cultos" id="cultos">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nossos Cultos</h2>
+                <p>Venha adorar conosco. Há um lugar para você!</p>
+            </div>
+            <div class="cultos-grid">
+                <!-- GOBA -->
+                <div class="culto-card fade-in">
+                    <h3>GOBA</h3>
+                    <div class="location">📍 Localização a ser definida</div>
+                    <ul class="culto-times">
+                        <li>
+                            <span class="day">Domingo</span>
+                            <span class="time">09:00 & 17:00</span>
+                        </li>
+                        <li>
+                            <span class="day">Quarta-feira</span>
+                            <span class="time">19:00</span>
+                        </li>
+                        <li>
+                            <span class="day">Sexta-feira</span>
+                            <span class="time">19:30</span>
+                        </li>
+                        <li>
+                            <span class="day">Escola Bíblica</span>
+                            <span class="time">Domingo 08:00</span>
+                        </li>
+                    </ul>
+                    <div class="note">
+                        💡 Horários sujeitos a alteração. Confirme conosco antes de visitar.
+                    </div>
+                </div>
+
+                <!-- SEDE -->
+                <div class="culto-card fade-in">
+                    <h3>SEDE</h3>
+                    <div class="location">📍 Localização a ser definida</div>
+                    <ul class="culto-times">
+                        <li>
+                            <span class="day">Domingo</span>
+                            <span class="time">10:00 & 18:00</span>
+                        </li>
+                        <li>
+                            <span class="day">Terça-feira</span>
+                            <span class="time">19:00</span>
+                        </li>
+                        <li>
+                            <span class="day">Quinta-feira</span>
+                            <span class="time">19:30</span>
+                        </li>
+                        <li>
+                            <span class="day">Culto de Oração</span>
+                            <span class="time">Sábado 07:00</span>
+                        </li>
+                    </ul>
+                    <div class="note">
+                        💡 Horários sujeitos a alteração. Confirme conosco antes de visitar.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EVENTOS FUTUROS -->
+    <section class="eventos" id="eventos">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Próximos Eventos</h2>
+                <p>Marque na sua agenda e participe conosco</p>
+            </div>
+            <div class="eventos-grid">
+                <div class="evento-card fade-in">
+                    <div class="evento-date">
+                        <div class="day">15</div>
+                        <div class="month">Novembro</div>
+                    </div>
+                    <div class="evento-body">
+                        <h4>Conferência de Avivamento</h4>
+                        <p>Três dias de intensa adoração, palavra e manifestação do Espírito Santo.</p>
+                        <div class="evento-meta">
+                            <span>🕐 19:00</span>
+                            <span>📍 SEDE</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="evento-card fade-in">
+                    <div class="evento-date">
+                        <div class="day">22</div>
+                        <div class="month">Novembro</div>
+                    </div>
+                    <div class="evento-body">
+                        <h4>Evangelismo de Rua</h4>
+                        <p>Saindo às ruas para proclamar o amor de Cristo e ministrar às famílias.</p>
+                        <div class="evento-meta">
+                            <span>🕐 09:00</span>
+                            <span>📍 GOBA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="evento-card fade-in">
+                    <div class="evento-date">
+                        <div class="day">05</div>
+                        <div class="month">Dezembro</div>
+                    </div>
+                    <div class="evento-body">
+                        <h4>Noite de Louvor</h4>
+                        <p>Uma noite especial de adoração com convidados especiais e ministração.</p>
+                        <div class="evento-meta">
+                            <span>🕐 18:30</span>
+                            <span>📍 SEDE</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALERIA -->
+    <section class="galeria" id="galeria">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Nossa Missão em Ação</h2>
+                <p>Momentos de evangelismo, oração e serviço à comunidade</p>
+            </div>
+            <div class="galeria-grid" id="galeria-grid">
+                <!-- Images injected by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="contato" id="contato">
+        <div class="container">
+            <div class="section-header fade-in">
+                <h2>Fale Conosco</h2>
+                <p>Estamos aqui para ouvir você e orar juntos</p>
+            </div>
+            <div class="contato-grid">
+                <div class="contato-info fade-in">
+                    <h3>Informações de Contato</h3>
+                    <div class="info-item">
+                        <div class="info-icon">📞</div>
+                        <div class="info-text">
+                            <h4>Telefone</h4>
+                            <p><a href="tel:+248">+248</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">✉️</div>
+                        <div class="info-text">
+                            <h4>Email</h4>
+                            <p><a href="mailto:igrejaministerialgeracaoeleita@gmail.com">igrejaministerialgeracaoeleita@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">📍</div>
+                        <div class="info-text">
+                            <h4>Localização</h4>
+                            <p>Informações a serem atualizadas</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">⏰</div>
+                        <div class="info-text">
+                            <h4>Horário de Atendimento</h4>
+                            <p>Segunda a Sexta: 09:00 - 17:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contato-form fade-in">
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="nome">Nome Completo</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Seu nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="assunto">Assunto</label>
+                            <input type="text" id="assunto" name="assunto" placeholder="Como podemos ajudar?">
+                        </div>
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem</label>
+                            <textarea id="mensagem" name="mensagem" required placeholder="Escreva sua mensagem..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Enviar Mensagem</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="images/LOGOTIPO.png" alt="Logo">
+                <p>Chamados para Manifestar as Virtudes de Deus</p>
+            </div>
+            <div class="footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#sobre">Sobre</a></li>
+                    <li><a href="#cultos">Cultos</a></li>
+                    <li><a href="#eventos">Eventos</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Contato</h4>
+                <ul>
+                    <li><a href="tel:+248">+248</a></li>
+                    <li><a href="mailto:igrejaministerialgeracaoeleita@gmail.com">Email</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Igreja Ministerial Geração Eleita. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightbox-close">&times;</button>
+        <img src="" alt="Imagem ampliada" id="lightbox-img">
+    </div>
+
+    <script>
+        // ===== SLIDESHOW =====
+        const slideImages = [
+            'images/Picsart_26-09-15_16-45-08-921.jpg',
+            'images/Picsart_26-09-15_16-46-13-421.jpg',
+            'images/Picsart_26-09-15_16-47-11-273.jpg',
+            'images/Picsart_26-09-15_16-48-08-782.jpg',
+            'images/Picsart_26-09-15_16-49-24-962.jpg',
+            'images/Picsart_26-09-15_16-50-24-325.jpg',
+            'images/Picsart_26-09-15_17-03-49-056.jpg',
+            'images/Picsart_26-09-15_17-01-24-343.jpg',
+            'images/Picsart_26-09-15_16-59-39-658.jpg',
+            'images/1000137226.jpg',
+            'images/1000137184.jpg',
+            'images/1000137202.jpg',
+            'images/1000137180.jpg',
+            'images/1000137195.jpg',
+            'images/1000137217.jpg',
+            'images/1000137223.jpg',
+            'images/1000137213.jpg',
+            'images/1000137221.jpg'
+        ];
+
+        const slideshow = document.getElementById('slideshow');
+        const indicators = document.getElementById('indicators');
+        let currentSlide = 0;
+        let slideInterval;
+
+        // Create slides
+        slideImages.forEach((src, i) => {
+            const slide = document.createElement('div');
+            slide.className = 'slide' + (i === 0 ? ' active' : '');
+            slide.style.backgroundImage = `url(${src})`;
+            slideshow.appendChild(slide);
+
+            const ind = document.createElement('div');
+            ind.className = 'indicator' + (i === 0 ? ' active' : '');
+            ind.addEventListener('click', () => goToSlide(i));
+            indicators.appendChild(ind);
+        });
+
+        function goToSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            const inds = document.querySelectorAll('.indicator');
+            slides[currentSlide].classList.remove('active');
+            inds[currentSlide].classList.remove('active');
+            currentSlide = index;
+            slides[currentSlide].classList.add('active');
+            inds[currentSlide].classList.add('active');
+        }
+
+        function nextSlide() {
+            goToSlide((currentSlide + 1) % slideImages.length);
+        }
+
+        function startSlideshow() {
+            slideInterval = setInterval(nextSlide, 6000); // 6 seconds
+        }
+
+        startSlideshow();
+
+        // Pause on hover
+        slideshow.addEventListener('mouseenter', () => clearInterval(slideInterval));
+        slideshow.addEventListener('mouseleave', startSlideshow);
+
+        // ===== MOBILE MENU =====
+        const menuToggle = document.getElementById('menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu on link click
+        navMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => navMenu.classList.remove('active'));
+        });
+
+        // ===== HEADER SCROLL =====
+        window.addEventListener('scroll', () => {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ===== GALLERY =====
+        const galleryImages = [
+            'images/1.jpg',
+            'images/2.jpg',
+            'images/3.jpg',
+            'images/4.jpg',
+            'images/5.jpg',
+            'images/6.jpg',
+            'images/7.jpg',
+            'images/8.jpg',
+            'images/9.jpg',
+            'images/10.jpg',
+            'images/11.jpg',
+            'images/12.jpg',
+            'images/13.jpg',
+            'images/14.jpg',
+            'images/15.jpg',
+            'images/16.jpg',
+            'images/17.jpg',
+            'images/18.jpg'
+        ];
+
+        const galeriaGrid = document.getElementById('galeria-grid');
+        galleryImages.forEach(src => {
+            const item = document.createElement('div');
+            item.className = 'galeria-item fade-in';
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = 'Missão Geração Eleita';
+            img.loading = 'lazy';
+            item.appendChild(img);
+            item.addEventListener('click', () => openLightbox(src));
+            galeriaGrid.appendChild(item);
+        });
+
+        // ===== LIGHTBOX =====
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const lightboxClose = document.getElementById('lightbox-close');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+        });
+
+        // ===== COUNTERS =====
+        function animateCounters() {
+            const counters = document.querySelectorAll('.stat-number');
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+                const update = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current);
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.textContent = target + '+';
+                    }
+                };
+                update();
+            });
+        }
+
+        // ===== SCROLL ANIMATIONS =====
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    if (entry.target.classList.contains('about-stats') || entry.target.querySelector('.stat-number')) {
+                        // trigger counters only once
+                        if (!window.countersAnimated) {
+                            animateCounters();
+                            window.countersAnimated = true;
+                        }
+                    }
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Also observe stats specifically
+        const statsSection = document.querySelector('.about-stats');
+        if (statsSection) {
+            const statsObserver = new IntersectionObserver((entries) => {
+                if (entries[0].isIntersecting && !window.countersAnimated) {
+                    animateCounters();
+                    window.countersAnimated = true;
+                }
+            }, { threshold: 0.5 });
+            statsObserver.observe(statsSection);
+        }
+
+        // ===== CONTACT FORM =====
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Obrigado pela sua mensagem! Em breve entraremos em contato.\n\n(Esta é uma demonstração – o formulário não envia dados reais.)');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
